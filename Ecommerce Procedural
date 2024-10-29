@@ -1,0 +1,261 @@
+using System;
+
+namespace Ecommerce
+{
+    internal class Program
+    {
+        const int LIMITE = 30;
+        static string[] categorias = new string[LIMITE];
+        static string[] fornecedores = new string[LIMITE];
+        static string[] produtos = new string[LIMITE];
+        static int[] produtoCategoria = new int[LIMITE];
+        static int[] produtoFornecedor = new int[LIMITE];
+        static int contadorCategoria = 0;
+        static int contadorFornecedor = 0;
+        static int contadorProduto = 0;
+
+        static void Main(string[] args)
+        {
+            int opcao = 0;
+
+            do
+            {
+                Console.WriteLine("BEM VINDO AO MEU ERP DE VENDAS DE CELULARES");
+                Separador('=', 100);
+                Console.WriteLine("CADASTRO GERAL DO SISTEMA");
+                Console.WriteLine("(1) - Cadastro de Categorias");
+                Console.WriteLine("(2) - Cadastro de Fornecedores");
+                Console.WriteLine("(3) - Cadastro de Produtos");
+                Console.WriteLine("(4) - Listar Categorias");
+                Console.WriteLine("(5) - Listar Fornecedores");
+                Console.WriteLine("(6) - Listar Produtos");
+                Console.WriteLine("(0) - Sair");
+                Separador('_', 100);
+
+                Console.WriteLine("Digite sua opção: ");
+                opcao = int.Parse(Console.ReadLine());
+                {
+                    switch (opcao)
+                    {
+                        case 1:
+                            Modulocategoria();
+                            break;
+                        case 2:
+                            Modulofornecedor();
+                            break;
+                        case 3:
+                            Moduloproduto();
+                            break;
+                        case 4:
+                            Listarcategorias();
+                            break;
+                        case 5:
+                            Listarfornecedores();
+                            break;
+                        case 6:
+                            listarprodutos();
+                            break;
+                        case 0:
+                            Console.WriteLine("Saindo do sistema. Até logo!");
+                            break;
+                        default:
+                            Console.WriteLine("Opção inválida. Tente novamente.");
+                            break;
+                    }
+                }
+            } while (opcao != 0);
+        }
+
+        static void Separador(char simbolo, int quantidade)
+        {
+            for (int i = 0; i <= quantidade; i++)
+            {
+                Console.Write(simbolo);
+            }
+            Console.WriteLine();
+        }
+
+        static void Modulocategoria()
+        {
+            if (contadorCategoria < 10)
+            {
+                Console.WriteLine("Digite o nome da nova categoria (ex: Smartphones, Acessórios, etc.): ");
+
+                (categorias[contadorCategoria]) = (Console.ReadLine());
+                contadorCategoria++;
+
+                Console.WriteLine("Categoria cadastrada com sucesso!");
+
+            }
+            else
+            {
+                Console.WriteLine("Limite de categorias atingido!");
+
+            }
+        }
+
+        static void Modulofornecedor()
+        {
+            if (contadorFornecedor < 10)
+
+            {
+                Console.WriteLine("Digite o nome do fornecedor (ex: Samsung, Apple, Xiaomi): ");
+
+                (fornecedores[contadorFornecedor]) = (Console.ReadLine());
+                contadorFornecedor++;
+
+                Console.WriteLine("Fornecedor cadastrado com sucesso!");
+
+            }
+            else
+            {
+                Console.WriteLine("Limite de fornecedores atingido!");
+            }
+        }
+
+        static void Moduloproduto()
+        {
+            string categoriaEscolhida, fornecedorEscolhido;
+
+
+            if (contadorProduto < 10)
+
+            {
+                Console.WriteLine("Digite o nome do produto (ex: iPhone 13, Galaxy S21): ");
+
+                (produtos[contadorProduto]) = (Console.ReadLine());
+
+
+                Console.WriteLine("Escolha uma categoria para o produto:");
+
+
+                Listarcategorias();
+
+                Console.WriteLine("Digite o número da categoria: ");
+
+                int categoriaescolhida = int.Parse(Console.ReadLine());
+
+                produtoCategoria[contadorProduto] = categoriaescolhida - 1;
+
+
+                Console.WriteLine("Escolha um fornecedor para o produto:");
+
+
+                Listarfornecedores();
+
+                Console.WriteLine("Digite o número do fornecedor: ");
+
+                int fornecedorescolhido = int.Parse(Console.ReadLine()) - 1;
+                produtoFornecedor[contadorProduto] = fornecedorescolhido;
+
+                Console.WriteLine("Produto cadastrado com sucesso!");
+
+            }
+            else
+            {
+                Console.WriteLine("Limite de produtos atingido!");
+
+            }
+        }
+        static void Listarcategorias()
+        {
+
+            if (contadorCategoria > 0)
+
+            {
+                Console.WriteLine("CATEGORIAS CADASTRADAS: ");
+
+                for (int i = 0; i < contadorCategoria; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {categorias[i]}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nenhuma categoria cadastrada.");
+            }
+        }
+
+        static void Listarfornecedores()
+        {
+
+            if (contadorFornecedor > 0)
+            {
+                Console.WriteLine("FORNECEDORES CADASTRADOS:");
+
+                for (int i = 0; i < contadorFornecedor; i++)
+                {
+                    Console.WriteLine($"{i + 1}. {fornecedores[i]}");
+
+                }
+            }
+
+            else
+            {
+                Console.WriteLine("Nenhum fornecedor cadastrado.");
+            }
+        }
+
+        static void listarprodutos()
+        {
+
+            if (contadorProduto > 0)
+            {
+                Console.WriteLine("PRODUTOS CADASTRADOS: ");
+
+                for (int i = 0; i < contadorProduto; i++)
+                {
+                    Console.WriteLine($"{i + 1}. Produto: {produtos[i]}, Categoria: {categorias[produtoCategoria[i]]}, Fornecedor: {fornecedores[produtoFornecedor[i]]}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Nenhum produto cadastrado.");
+            }
+        }
+
+        static void Popularbancodados()
+        {
+            string[] categoriaslote = { "Smartphones", "Acessórios", "Carregadores", "Capinhas", "Fones de ouvido" };
+            string[] fornecedoreslote = { "Samsung", "Apple", "Xiaomi", "Motorola", "LG" };
+            string[] produtoslote = { "Galaxy S21", "iPhone 13", "Redmi Note 10", "Moto G100", "LG Velvet" };
+
+
+            for (int i = 0; i < categoriaslote.Length; i++)
+            {
+                if (contadorCategoria < LIMITE)
+                {
+                    categorias[contadorCategoria] = categoriaslote[i];
+                    contadorCategoria++;
+                }
+            }
+
+            for (int i = 0; i < fornecedoreslote.Length; i++)
+            {
+                if (contadorFornecedor < 10)
+                {
+                    fornecedores[contadorFornecedor] = fornecedoreslote[i];
+                    contadorFornecedor++;
+                }
+            }
+
+
+            for (int i = 0; i < produtoslote.Length; i++)
+            {
+                if (contadorProduto < 10)
+
+                {
+                    produtos[contadorProduto] = produtoslote[i];
+
+                    produtoCategoria[contadorProduto] = i;
+                    produtoFornecedor[contadorProduto] = i;
+
+                    contadorProduto++;
+
+                }
+            }
+
+            Console.WriteLine("Banco de dados inicializado com sucesso!\n");
+        }
+    }
+}
